@@ -1,0 +1,26 @@
+{
+	"total": 4,
+	"data": [
+		{
+			"name": "centOS",
+			"updateTime": "2019-09-09",
+			"type": "文件夹",
+			"size": 25
+		}, {
+			"name": "idea",
+			"updateTime": "2019-09-10",
+			"type": "文件夹",
+			"size": 23
+		}, {
+			"name": "xftp",
+			"updateTime": "2019-09-11",
+			"type": "文件夹",
+			"size": 21
+		}, {
+			"name": "linux",
+			"updateTime": "2019-09-19",
+			"type": "文件夹",
+			"size": 29
+		}
+	]
+}

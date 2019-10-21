@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>FTP同步工具</title>
+<link rel="stylesheet" href="layui/css/layui.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+</head>
+
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-header">
+			<div class="layui-logo">FTP同步工具</div>
+			<!-- 头部区域（可配合layui已有的水平导航） -->
+			<!--  <ul class="layui-tab-title layui-layout-left " >
+      <li class="layui-nav-item"><a href="">控制台</a></li>
+      <li class="layui-nav-item"><a href="">商品管理</a></li>
+      <li class="layui-nav-item"><a href="">用户</a></li>
+    </ul> -->
+			<div class="layui-tab" lay-filter="demo" lay-allowclose="true">
+				<ul class="layui-tab-title tab-option">
+					<!--  <li class="layui-nav-item"><a href="">控制台</a></li>
+      <li class="layui-nav-item"><a href="">商品管理</a></li>
+      <li class="layui-nav-item"><a href="">用户</a></li> -->
+					<li lay-id="index" class="layui-this">首页<i
+						class="layui-icon layui-unselect layui-tab-close">&#x1006;</i></li>
+					<li lay-id="task-list">同步任务<i
+						class="layui-icon layui-unselect layui-tab-close">&#x1006;</i></li>
+				</ul>
+				<div class="layui-tab-content" style="height: 100px;">
+					<div class="layui-tab-item layui-show">
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputEmail3" onkeydown="onKeyDown(event)"
+								placeholder="search">
+						</div>
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#myModal" id="addLink">新增链接</button>
+						<button type="button" class="btn btn-primary" 
+							 id="updateLink">修改链接</button>
+						<button type="button" class="btn btn-primary"   id="delLink">删除链接</button>
+						<button type="button" class="btn btn-primary"   id="new-task">配置任务</button>
+						<table id="ftp-link" class="table-no-bordered">
+						</table>
+					</div>
+					<!-- 同步任务选项卡内容 -->
+					<div class="layui-tab-item">
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="sync-search" onkeydown="onSyncDown(event)"
+								placeholder="search">
+						</div>
+						<button type="button" class="btn btn-primary" 
+							 id="updateTask">修改任务</button>
+						<button type="button" class="btn btn-primary"   id="delTask">删除任务</button>
+						<table id="task-list" class="table-no-bordered">
+						</table>
+					</div>
+
+				</div>
+			</div>
+			<ul class="layui-nav layui-layout-right">
+				<li class="layui-nav-item"><a href="javascript:;"> <img
+						src="http://t.cn/RCzsdCq" class="layui-nav-img"> admin
+				</a></li>
+				<li class="layui-nav-item" id="logout"><a href="">退了</a></li>
+			</ul>
+		</div>
+
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+				<ul class="layui-nav layui-nav-tree" lay-filter="test">
+					<li class="layui-nav-item layui-nav-itemed"><a class=""
+						href="javascript:;">FTP链接</a>
+						<dl class="layui-nav-child" id="ftp-nick-list">
+							<!-- <dd>
+								<a href="javascript:;" data-type="tabAdd"
+									class="site-demo-active" lay-id="1">链接一</a>
+							</dd>
+							<dd>
+								<a href="javascript:;" data-type="tabAdd"
+									class="site-demo-active" lay-id="2">链接二</a>
+							</dd>
+							<dd>
+								<a href="javascript:;" data-type="tabAdd"
+									class="site-demo-active" lay-id="3">链接三</a>
+							</dd> -->
+						</dl></li>
+
+
+				</ul>
+			</div>
+		</div>
+
+		<div class="layui-body">
+			<!-- 内容主体区域 -->
+			<!-- <div style="padding: 15px;">内容主体区域</div> -->
+			<iframe id="file-details" data-frameid="' + id + '" frameborder="0" src="../ftpFileLink" style="display:none;z-index:2;width:100%;height:100%;"></iframe>
+		</div>
+		<!-- 增加，修改ftp链接弹框 -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel"></h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal form" role="form" id="form-table">
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">远程FTP<font
+									color="red">*</font></label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="remote_ip" id="remote_ip"
+										placeholder="ip">
+								</div>
+								<label for="lastname" class="col-sm-2 control-label">本地FTP<font
+									color="red">*</font></label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="native_ip" id="native_ip"
+										placeholder="ip">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">端口<font
+									color="red">*</font></label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="remote_port" value="21" id="remote_port"
+										placeholder="端口"
+										maxlength="50">
+								</div>
+								<label for="lastname" class="col-sm-2 control-label">端口<font
+									color="red">*</font></label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="native_port" value="21" id="native_port"
+										placeholder="端口"
+										maxlength="50">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">用户名<font
+									color="red">*</font></label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="remote_username" id="remote_username"
+										placeholder="用户名">
+								</div>
+								<label for="firstname" class="col-sm-2 control-label">用户名<font
+									color="red">*</font></label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="native_username" id="native_username"
+										placeholder="用户名">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">密码<font
+									color="red">*</font></label>
+								<div class="col-sm-4">
+									<input type="password" class="form-control" name="remote_password" id="remote_password"
+										placeholder="密码">
+								</div>
+								<label for="lastname" class="col-sm-2 control-label">密码<font
+									color="red">*</font></label>
+								<div class="col-sm-4">
+									<input type="password" class="form-control" name="native_password" id="native_password"
+										placeholder="密码">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="lastname" class="col-sm-2 control-label">创建人<font
+									color="red">*</font></label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="creater" id="creater"
+										placeholder="创建人">
+								</div>
+								<label for="lastname" class="col-sm-2 control-label">同步时间间隔<font
+									color="black">*</font></label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" value="600" id="sync_time"
+										name="syncTime"
+										placeholder="以秒为单位,默认600">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">任务描述</label>
+								<div class="col-sm-10">
+									<textarea class="textarea form-control" name="task" id="task"
+										maxlength="512" style="height: 63px; line-height: 1.2;"></textarea>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">连接详情</label>
+								<div class="col-sm-10">
+									<textarea class="textarea form-control"  id="task-link"
+										maxlength="512" style="height: 63px; line-height: 1.2;"></textarea>
+								</div>
+							</div>
+
+							<hr>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-6">
+									<button type="button" class="btn btn-primary test-ftp" id="test-connect" name="test-connect">测试</button>
+									<button type="button" class="btn btn-primary test-ftp" id="sure-connect" data-dismiss="modal">确定</button>
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">取消</button>
+									<input type="hidden" name="id" id="id">
+								</div>
+							</div>
+
+						</form>
+
+
+
+
+
+
+					</div>
+					<!-- <div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">提交更改</button>
+					</div> -->
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		
+		<!-- 新增任务配置弹框 -->
+		<div class="modal fade" id="task-modal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="task-title"></h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal form" role="form">
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">远程路径</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="remotePath" id="remotePath"
+										placeholder="url">
+								</div>
+								<label for="lastname" class="col-sm-2 control-label">本地路径</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="nativePath" id="nativePath"
+										placeholder="url">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">任务名称</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="taskName" id="taskName"
+										placeholder="名称"
+										maxlength="50">
+								</div>
+							</div>
+							<hr>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-6">
+									<button type="button" class="btn btn-primary" id="task-sure" data-dismiss="modal">确定</button>
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="js/utils.js"></script>
+	<script src="js/common/jquery.min.js"></script>
+	<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="layui/layui.js"></script>
+    <script src="js/common/bootstrap-table.js"></script>
+	<script src="js/index.js"></script>
+</body>
+</html>

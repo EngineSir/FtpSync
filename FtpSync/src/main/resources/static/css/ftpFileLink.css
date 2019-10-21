@@ -1,0 +1,18 @@
+.body-content{
+	overflow: scroll;
+}
+.bg-primary{
+	height:32px;
+	background-color: hsl(208, 61%, 80%);
+}
+.go-back{
+	font-size: 19px;
+}
+.go-back-btn{
+	cursor:pointer;
+}
+
+#json-renderer{
+	height:800px;
+	overflow: scroll;
+}

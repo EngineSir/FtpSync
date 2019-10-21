@@ -1,0 +1,40 @@
+.layui-tab{
+	 margin-right:100px;
+	 margin-left:200px;
+	 margin-top:0;
+	 
+}
+
+.layui-tab-title{
+	height:60px;
+	
+}
+
+.layui-tab-title li{
+	height:40px;
+	margin-top: 20px;
+	background-color:hsl(0, 0%, 95%); 
+}
+.layui-tab-title,.layui-tab-title .layui-this {
+	color: hsl(0, 1%, 5%);
+}
+.layui-layout-admin .layui-header {
+    background-color: hsl(0, 0%, 96%);
+}
+.layui-bg-black{
+	background-color: hsl(0, 0%, 96%)!important;
+}
+.layui-nav{
+	background-color: hsla(225, 12%, 25%, 0.2);
+}
+.layui-nav .layui-nav-item a{
+	color: hsla(0, 2%, 6%, 0.7)!important;
+}
+.layui-nav-tree .layui-nav-item a:hover {
+    background-color: hsl(224, 11%, 80%);
+}
+.layui-nav-itemed>.layui-nav-child{
+	background-color:  hsl(0, 0%, 95%)!important;
+}
+.col-sm-10 {
+    width: 76.333333%!important;
