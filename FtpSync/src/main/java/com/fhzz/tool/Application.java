@@ -12,23 +12,6 @@ public class Application {
 	static ConcurrentHashMap<String, Timer> timerMap = new ConcurrentHashMap<>();
 	//当前ftp信息
 	static ConcurrentHashMap<String, ThreadSyncFile> threadMap = new ConcurrentHashMap<>();
-
-//	public static ConcurrentHashMap<String, Timer> getAllTimerMap() {
-//		return timerMap;
-//	}
-//	
-//	public static ConcurrentHashMap<String, ThreadSyncFile> getAllThreadSyncFileMap() {
-//		return threadMap;
-//	}
-//
-//	public static void setTimerMap(ConcurrentHashMap<String, Timer> timer) {
-//		Application.timerMap = timer;
-//	}
-//	
-//	
-//	public static void setThreadSyncFileMap(ConcurrentHashMap<String, ThreadSyncFile> thread) {
-//		Application.threadMap = thread;
-//	}
 	
 	//获取key 的任务调度
 	public static Timer getTimerMap(String key) {

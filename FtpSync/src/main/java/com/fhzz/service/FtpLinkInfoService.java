@@ -50,7 +50,6 @@ public class FtpLinkInfoService {
 	 * @return
 	 */
 	public Result saveFtpLink(FtpLinkInfoParam ftpLinkInfoParam,String type)  {
-		System.out.println(ftpLinkInfoParam);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		FTPClient remoteFtp=FtpUtil.getFtpClient(ftpLinkInfoParam.getRemote_ip(),ftpLinkInfoParam.getRemote_port(),ftpLinkInfoParam.getRemote_username(),ftpLinkInfoParam.getRemote_password());

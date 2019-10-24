@@ -3,7 +3,11 @@ package com.fhzz.tool;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * @ClassName: CamelCharOrUnderLine
+ * @Description: TODO(数据库下划线和驼峰标识的互换)
+ * @date 2017年8月11日 下午4:50:49
+ */
 public class CamelCharOrUnderLine {
 
     public static final char UNDERLINE = '_';

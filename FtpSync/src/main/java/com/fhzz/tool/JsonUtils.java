@@ -41,7 +41,6 @@ public class JsonUtils {
 
 
     /**
-     * 作者：MYL
      * 用于复杂类型转换，如转换成List或Map
      * 如果是ArrayList<YourBean>那么使用ObjectMapper 的getTypeFactory().constructParametricType(collectionClass, elementClasses);
      * 如果是HashMap<String,YourBean>那么 ObjectMapper 的getTypeFactory().constructParametricType(HashMap.class,String.class, YourBean.class);

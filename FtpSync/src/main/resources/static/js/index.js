@@ -391,7 +391,7 @@ function initSyncTask(search){
 				var type=1
 				var str = `<a class="layui-btn layui-btn-xs syncStart`+(row.flag==1?" layui-btn-disabled":"")+`"`+(row.flag==1?' style="pointer-events: none"':"")+` lay-event="edit" onclick="syncStart('${id}','${nativePath}','${remotePath}','${type}',${ftpId})">同步</a>`;
 				//if (row.type == 1) {
-					str += `<a class="layui-btn layui-btn-danger layui-btn-xs syncStop`+(row.flag==0?" layui-btn-disabled":"")+`"`+(row.flag==0?' style="pointer-events: none"':"")+` lay-event="del" onclick="syncStop('${id}','${nativePath}','${remotePath}',${type},${ftpId})">停止</a>`;
+					str += `<a class="layui-btn layui-btn-danger layui-btn-xs syncStop`+(row.flag==0?" layui-btn-disabled":"")+`"`+(row.flag==0?' style="pointer-events: none"':"")+` lay-event="del" onclick="syncStop('${id}','${nativePath}','${remotePath}',${ftpId})">停止</a>`;
 				//}
 				return str;
 			}
@@ -469,13 +469,13 @@ function syncStart(id,nativePath,remotePath,type,ftpId){
  * @param ftpId
  * @returns
  */
-function syncStop(id,nativePath,remotePath,type,ftpId){
+function syncStop(id,nativePath,remotePath,ftpId){
 	
 	$.ajax({
 		url:"/ftpSync/stopSyncTask",
 		type:"post",
 		dataType:"json",
-		data:{"id":id,"nativePath":nativePath,"remotePath":remotePath,"type":type,"ftpId":ftpId},
+		data:{"id":id,"nativePath":nativePath,"remotePath":remotePath,"ftpId":ftpId},
 		success:function(result){
 		},
 		error:function(){

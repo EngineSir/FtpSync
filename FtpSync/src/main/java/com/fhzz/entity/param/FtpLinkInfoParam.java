@@ -7,8 +7,6 @@ package com.fhzz.entity.param;
 public class FtpLinkInfoParam {
 	private String id;
 
-	private String nick;
-
 	private String remote_ip;
 
 	private String native_ip;
@@ -43,14 +41,6 @@ public class FtpLinkInfoParam {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getNick() {
-		return nick;
-	}
-
-	public void setNick(String nick) {
-		this.nick = nick;
 	}
 
 	public String getRemote_ip() {
@@ -149,12 +139,11 @@ public class FtpLinkInfoParam {
 		this.task = task;
 	}
 
-	public FtpLinkInfoParam(String id, String nick, String remote_ip, String native_ip, String time, String creater,
+	public FtpLinkInfoParam(String id, String remote_ip, String native_ip, String time, String creater,
 			String native_port, String remote_port, String native_username, String remote_username,
 			String native_password, String remote_password, String sync_time, String task) {
 		super();
 		this.id = id;
-		this.nick = nick;
 		this.remote_ip = remote_ip;
 		this.native_ip = native_ip;
 		this.time = time;
@@ -171,7 +160,7 @@ public class FtpLinkInfoParam {
 
 	@Override
 	public String toString() {
-		return "FtpLinkInfoParam [id=" + id + ", nick=" + nick + ", remote_ip=" + remote_ip + ", native_ip=" + native_ip
+		return "FtpLinkInfoParam [id=" + id + ", remote_ip=" + remote_ip + ", native_ip=" + native_ip
 				+ ", time=" + time + ", creater=" + creater + ", native_port=" + native_port + ", remote_port="
 				+ remote_port + ", native_username=" + native_username + ", remote_username=" + remote_username
 				+ ", native_password=" + native_password + ", remote_password=" + remote_password + ", sync_time="

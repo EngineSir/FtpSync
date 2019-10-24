@@ -18,17 +18,17 @@ import org.springframework.stereotype.Component;
 @IdClass(SyncIdClass.class)		//指定联合主键
 public class SyncDate{
 
-	/**null*/
+	
 	@Id
 	@Column(name = "ID", length = 30)
 	private Integer id;
 
-	/**null*/
+	
 	@Id
 	@Column(name = "PATH", length = 100)
 	private String path;
 
-	/**null*/
+	
 	@Column(name = "TIME", length = 20)
 	private long time;
 

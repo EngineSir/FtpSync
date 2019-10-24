@@ -119,6 +119,7 @@ public class FtpUtil {
 			ftp.login(name, pass);// 登录ftp服务器
 			//被动模式
 			ftp.enterLocalPassiveMode();
+			System.out.println(ftp.getReplyCode());
 		
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

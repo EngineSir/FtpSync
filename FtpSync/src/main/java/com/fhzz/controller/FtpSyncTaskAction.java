@@ -89,7 +89,7 @@ public class FtpSyncTaskAction {
 	 * @return
 	 */
 	@PostMapping("/stopSyncTask")
-	public Result stopSyncTask(@RequestParam("id") String id ,@RequestParam("nativePath") String nativePath ,@RequestParam("remotePath") String remotePath ,@RequestParam("type") String type,@RequestParam("ftpId") String ftpId) {
-		return ftpSyncTaskService.stopSyncTask(ftpId,nativePath,remotePath,type,id);
+	public Result stopSyncTask(@RequestParam("id") String id ,@RequestParam("nativePath") String nativePath ,@RequestParam("remotePath") String remotePath ,@RequestParam("ftpId") String ftpId) {
+		return ftpSyncTaskService.stopSyncTask(ftpId,nativePath,remotePath,id);
 	}
 }

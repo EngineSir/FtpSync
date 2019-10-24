@@ -7,7 +7,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -62,8 +65,25 @@ public class MD5Util {
 //		for(int i=0;i<11;i++) {
 //			System.out.println(arr[r.nextInt(11)]);
 //		}
-	
+//		getAddress("广西陆川县");
+//		getAddress("武汉市新洲区");
+//		
+//		getAddress("重庆市合川区龙市镇青坝村6组61号附1号");
+//		
+//		
+//		
+//		getAddress("黑龙江省博2罗县");
+//		
+//		
+//		getAddress("宁夏莱西市");
+		String s="20191024";
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
+		String curDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 
+		System.out.println(curDate);
+		 Pattern pattern = Pattern.compile("^-?\\d+(\\.\\d+)?$");//这个也行
+	     Matcher isNum = pattern.matcher(s);
+	     System.out.println(isNum.matches());
 	}
 
 	/**
@@ -115,40 +135,11 @@ public class MD5Util {
 		input.close();
 
 	}
-	  public static List<Map<String,String>> addressResolution(String address){
-			/* 
-			 * java.util.regex是一个用正则表达式所订制的模式来对字符串进行匹配工作的类库包。它包括两个类：Pattern和Matcher Pattern
-		     *    一个Pattern是一个正则表达式经编译后的表现模式。 Matcher
-		     *    一个Matcher对象是一个状态机器，它依据Pattern对象做为匹配模式对字符串展开匹配检查。
-	         *    首先一个Pattern实例订制了一个所用语法与PERL的类似的正则表达式经编译后的模式，然后一个Matcher实例在这个给定的Pattern实例的模式控制下进行字符串的匹配工作。
-	    	*/
-	        //String regex="(?<province>[^省]+自治区|.*?省|.*?行政区|.*?市|广西|宁夏)(?<city>[^市]+自治州|.*?地区|.*?行政单位|.+盟|市辖区|.*?市|.*?县)(?<county>[^县]+县|.+区|.+市|.+旗|.+海域|.+岛)?(?<town>[^区]+区|.+镇)?(?<village>.*)";
-	        String regex="(?<province>[^省]+自治区|.*?省|.*?行政区|.*?市|广西|内蒙古|西藏|宁夏|新疆)(?<city>[^市]+自治州|.*?地区|.*?行政单位|.+盟|市辖区|.*?市|.*?县)(?<county>[^县]+县|.+区|.+市|.+旗|.+海域|.+岛)(?<town>[^区]+区|.*镇|.*乡)(?<village>.*)";
-	        
-	        //获取截取省，市，县的正则
-	        Matcher m=Pattern.compile(regex).matcher(address);
-	        String province=null,city=null,county=null,town=null,village=null;
-	        List<Map<String,String>> table=new ArrayList<Map<String,String>>();
-	        Map<String,String> row=null;
-	        while(m.find()){
-	            row=new LinkedHashMap<String,String>();
-	            province=m.group("province");
-	            row.put("province", province==null?"":province.trim());
-	            city=m.group("city");
-	            row.put("city", city==null?"":city.trim());
-	            county=m.group("county");
-	            row.put("county", county==null?"":county.trim());
-	            town=m.group("town");
-	            row.put("town", town==null?"":town.trim());
-	            village=m.group("village");
-	            row.put("village", village==null?"":village.trim());
-	            table.add(row);
-	        }
-	        System.out.println(table);
-	        return table;
-	    }
-	  
-	  
+	  /**
+	   * 正则切割标准地址，省，市，县
+	   * @param addr
+	   * @return
+	   */
 	  public static Map<String,Object> getAddress(String addr){
 	        Map<String,Object> map = new HashMap();
 	        String city =null;

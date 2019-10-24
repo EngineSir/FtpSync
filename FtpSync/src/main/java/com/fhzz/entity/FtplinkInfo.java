@@ -18,57 +18,57 @@ import org.springframework.stereotype.Component;
 @Table(name = "ftplink_info")
 public class FtplinkInfo{
 
-	/**null*/
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", length = 11)
 	private Integer id;
 
-	/**null*/
+	
 	@Column(name = "REMOTE_IP", length = 30)
 	private String remoteIp;
 
-	/**null*/
+	
 	@Column(name = "NATIVE_IP", length = 30)
 	private String nativeIp;
 
-	/**null*/
+	
 	@Column(name = "TIME", length = 40)
 	private String time;
 
-	/**null*/
+	
 	@Column(name = "CREATER", length = 20)
 	private String creater;
 
-	/**null*/
+	
 	@Column(name = "NATIVE_PORT", length = 6)
 	private String nativePort;
 
-	/**null*/
+	
 	@Column(name = "REMOTE_PORT", length = 6)
 	private String remotePort;
 
-	/**null*/
+	
 	@Column(name = "NATIVE_USERNAME", length = 20)
 	private String nativeUsername;
 
-	/**null*/
+	
 	@Column(name = "REMOTE_USERNAME", length = 20)
 	private String remoteUsername;
 
-	/**null*/
+	
 	@Column(name = "NATIVE_PASSWORD", length = 40)
 	private String nativePassword;
 
-	/**null*/
+	
 	@Column(name = "REMOTE_PASSWORD", length = 40)
 	private String remotePassword;
 
-	/**null*/
+	
 	@Column(name = "SYNC_TIME", length = 10)
 	private String syncTime;
 
-	/**null*/
+	
 	@Column(name = "TASK", length = 30)
 	private String task;
 

@@ -20,33 +20,33 @@ import org.springframework.stereotype.Component;
 @Table(name = "sync_task")
 public class SyncTask{
 
-	/**null*/
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", length = 11)
 	private Integer id;
 
-	/**null*/
+	
 	@Column(name = "REMOTE_PATH", length = 100)
 	private String remotePath;
 
-	/**null*/
+	
 	@Column(name = "NATIVE_PATH", length = 100)
 	private String nativePath;
 
-	/**null*/
+	
 	@Column(name = "TIME", length = 40)
 	private String time;
 
-	/**null*/
+	
 	@Column(name = "FTP_ID", length = 20)
 	private String ftpId;
 
-	/**null*/
+	
 	@Column(name = "TASK_NAME", length = 10)
 	private String taskName;
 
-	/**null*/
+	
 	@Column(name = "FLAG", length = 2)
 	private Integer flag;
 	

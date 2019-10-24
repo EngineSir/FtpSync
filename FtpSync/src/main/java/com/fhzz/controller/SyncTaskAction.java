@@ -57,6 +57,11 @@ public class SyncTaskAction {
 		return syncTaskService.addTaskPath(ftpId,remotePath,nativePath,taskName,id);
 	}
 	
+	/**
+	 * 删除同步任务
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/delFtpSync")
 	public Result delFtpSync(@RequestParam("id") String id) {
 		return syncTaskService.delFtpSync(id);
