@@ -87,23 +87,11 @@ public class ThreadSyncFile extends TimerTask {
 					 syncDate=syncDateRepositoryImpl.getInfoByIdAndPath(this.id, this.remotePath+this.nativePath);
 				}
 				
-				//判断远程ftp是否已经建立当天文件夹
-				//boolean flag=false;
-				FTPFile[] remoteFiles = remoteFtpClient.listFiles();
-//				for(FTPFile file:remoteFiles) {
-//					if(file.isDirectory() && file.getName().equals(curDate)) {
-//						flag=true;
-//						break;
-//					}
-//				}
-			//	log.info(curDate+" "+flag);
-				//if(flag) {
 					//进行文件同步
 					syncDirFiles(syncDate,this.remotePath+"/",this.nativePath+"/");
 					//保存本次同步后的时间
 					syncDate.setTime(System.currentTimeMillis());
 					syncDateRepositoryImpl.save(syncDate);
-				//}
 					
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -145,10 +133,6 @@ public class ThreadSyncFile extends TimerTask {
 	private void syncDirFiles(SyncDate syncDate,String curRemotePath,String curNativePath) {
 		String curDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		Pattern pattern = Pattern.compile("^-?\\d+(\\.\\d+)?$");
-		//判断ftp是否有该文件夹，没有则创建,并切换到该目录下
-		//ftpFolderDir(curDate);
-		//boolean flog=false;
-		//SyncDate syncDate=syncDateRepositoryImpl.getInfoByIdAndPath(this.id, this.path);
 		try {
 			FTPFile[] remoteFiles=this.remoteFtpClient.listFiles();
 			if(remoteFiles!=null && remoteFiles.length>0) {		// 日志记录
@@ -167,29 +151,14 @@ public class ThreadSyncFile extends TimerTask {
 						curRemotePath+=file.getName()+"/";
 						curNativePath+=file.getName()+"/";
 						ftpFolderDir(curRemotePath,curNativePath);
-						//flog=true;
 						syncDirFiles(syncDate,curRemotePath,curNativePath);
 					}
-					//String str=this.remoteFtpClient.printWorkingDirectory();
-					//ftpFolderDir(str.substring(0, str.lastIndexOf('/')));
-//					curNativePath=curNativePath.substring(0, curNativePath.lastIndexOf('/'));
-//					curNativePath=curNativePath.substring(0, curNativePath.lastIndexOf('/')+1);
-//					curRemotePath=curRemotePath.substring(0, curRemotePath.lastIndexOf('/'));
-//					curRemotePath=curRemotePath.substring(0, curRemotePath.lastIndexOf('/')+1);
 					//返回上一级目录
 					curNativePath=interceptString(curNativePath);
 				    curRemotePath=interceptString(curRemotePath);
 					ftpFolderDir(curRemotePath,curNativePath);
-					//System.out.println(this.nativeFtpClient.printWorkingDirectory()+" "+this.remoteFtpClient.printWorkingDirectory());
 					continue;
 				}
-				//返回到上一级目录
-//				if(flog) {
-//					String str=this.remoteFtpClient.printWorkingDirectory();
-//					ftpFolderDir(str.substring(0, str.lastIndexOf('/')));
-//					flog=false;
-//				}
-				System.out.println(file.getName());
 				//long fileTime=Long.parseLong(file.getName().substring(0, file.getName().indexOf(".")));
 				//ftp文件时间不能精确到秒，故加60秒，以达到都可以同步
 				if(!file.isDirectory() && (file.getTimestamp().getTimeInMillis()/1000+60)>=(syncDate.getTime()/1000)) {

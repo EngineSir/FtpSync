@@ -54,6 +54,13 @@ public class SyncTaskService {
 		return new Result(true,"配置同步任务成功",null);
 	}
 	
+	/**
+	 *	 获取配置同步任务
+	 * @param pageSize
+	 * @param pageNo
+	 * @param search
+	 * @return
+	 */
 	public Result getSyncTask(Integer pageSize,Integer pageNo,String search) {
 		String sql = "select * from sync_task";
 		String likeSql="";
@@ -71,6 +78,12 @@ public class SyncTaskService {
 		List<?> rows = query.getResultList();
 		return new Result(true, "查询成功", new PageResult(rows,count));
 	}
+	
+	/**
+	 * 	删除配置同步任务
+	 * @param id
+	 * @return
+	 */
 	public Result delFtpSync(String id) {
 		Optional<SyncTask> syncTaskOption=syncTaskRepositoryImpl.findById(Integer.parseInt(id));
 		SyncTask syncTask=syncTaskOption.get();

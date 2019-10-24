@@ -48,10 +48,9 @@ public class GenEntityTwo {
 
 	// 数据库连接
 	// 数据库连接
-//	private static final String URL = "jdbc:mysql://127.0.0.1:3306/" + dataBaseName + "?useUnicode=true&characterEncoding=utf-8&useSSL=false";
-	private static final String URL = "jdbc:mysql://192.168.0.184/" + dataBaseName + "?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false";
+	private static final String URL = "jdbc:mysql://127.0.0.1:3306/" + dataBaseName + "?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 	private static final String NAME = "root";
-	private static final String PASS = "Fhzz123.";
+	private static final String PASS = "990165";
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 
 	private String[] colnames; // 列名数组

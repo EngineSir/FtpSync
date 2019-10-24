@@ -32,24 +32,7 @@ public class GeneralMethod {
 	private static PrintWriter printWriter = null;
 
 	public static void main(String[] args) {
-//		String s_url = "http://127.0.0.1:2222/ss/car.jpg";
-//		String savePath = "d:/tmp";
-//		String fileName = "test.jpg";
-//		getURLToFile(s_url, savePath, fileName);
-//		Map<String, String> birAgeSex = ;
-//		System.out.println(getBirAgeSex("442501197005164039").get("birthday"));
 		Date startTime = new Date();
-//		System.out.println(dateFormat(date, "yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(dateFormat(dateCalc(date, Calendar.YEAR, 1), "yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(dateFormat(dateCalc(date, Calendar.MONTH, 1), "yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(dateFormat(dateCalc(date, Calendar.DATE, -90), "yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(dateFormat(dateCalc(date, Calendar.HOUR_OF_DAY, 1), "yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(dateFormat(dateCalc(date, Calendar.MINUTE, 1), "yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(dateFormat(dateCalc(date, Calendar.SECOND, 1), "yyyy-MM-dd HH:mm:ss"));
-//		Date endTime = dateCalc(startTime, Calendar.SECOND, 1200008);
-//		System.out.println(getDateDiff(dateFormat(date, "yyyy-MM-dd HH:mm:ss"), dateFormat(d1, "yyyy-MM-dd HH:mm:ss"),"yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(getDateDiff(date.getTime(),d1.getTime()));
-//		System.out.println(getDateDiffByType(startTime, endTime, "minute"));
 		System.out.println(getUUID_16());
 	}
 

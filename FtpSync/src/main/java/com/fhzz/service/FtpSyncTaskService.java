@@ -251,7 +251,6 @@ public class FtpSyncTaskService {
 		try {
 			 remoteFtpClient.changeWorkingDirectory(remotePath);
 			 nativeFtpClient.changeWorkingDirectory(nativePath);
-			//FTPFile[] remoteFiles = remoteFtpClient.listFiles();
 			// 配置同步任务
 			if (null != type && !"".equals(type) && "1".equals(type)) {
 
@@ -261,24 +260,12 @@ public class FtpSyncTaskService {
 				syncFile.setPath(remotePath + nativePath);
 				syncFile.setTime(0);
 				syncDateRepositoryImpl.save(syncFile);
-				//for (FTPFile file : remoteFiles) {
-				//	if (file.isDirectory()) {
-						//nativeFtpClient.makeDirectory(file.getName());
-					//	String newRemotePath = remotePath + "/" + file.getName();
-						//String newNativePath = nativePath + "/" + file.getName();
-//						SyncDate syncDate = new SyncDate();
-//						syncDate.setId(Integer.parseInt(ftpId));
-//						syncDate.setPath(remotePath + nativePath);
-//						syncDate.setTime(0);
-//						syncDateRepositoryImpl.save(syncDate);
-						Timer timer=new Timer();
-						ThreadSyncFile task=new ThreadSyncFile(ftpLinkInfo.get(), remotePath, nativePath,
+				Timer timer=new Timer();
+				ThreadSyncFile task=new ThreadSyncFile(ftpLinkInfo.get(), remotePath, nativePath,
 								syncDateRepositoryImpl);
-						timer.schedule(task, 0, Long.parseLong(ftpLinkInfo.get().getSyncTime())*1000);
-						Application.setTimerMap(ftpId + remotePath + nativePath, timer);
-						Application.setThreadSyncFileMap(ftpId +  remotePath + nativePath, task);
-				//	}
-			//	}
+				timer.schedule(task, 0, Long.parseLong(ftpLinkInfo.get().getSyncTime())*1000);
+				Application.setTimerMap(ftpId + remotePath + nativePath, timer);
+				Application.setThreadSyncFileMap(ftpId +  remotePath + nativePath, task);
 
 				/**
 				 * 重新保存配置同步任务flag
@@ -294,26 +281,14 @@ public class FtpSyncTaskService {
 				syncFile.setPath(remotePath);
 				syncFile.setTime(0);
 				syncDateRepositoryImpl.save(syncFile);
-			//	for (FTPFile file : remoteFiles) {
-				//	if (file.isDirectory()) {
-					//	String newRemotePath = remotePath + "/" + file.getName();
-//						SyncDate syncDate = new SyncDate();
-//						syncDate.setId(Integer.parseInt(ftpId));
-//						syncDate.setPath(remotePath);
-//						syncDate.setTime(0);
-//						syncDateRepositoryImpl.save(syncDate);
-						Timer timer=new Timer();
-						ThreadSyncFile task=new ThreadSyncFile(ftpLinkInfo.get(), remotePath, remotePath,
+				Timer timer=new Timer();
+				ThreadSyncFile task=new ThreadSyncFile(ftpLinkInfo.get(), remotePath, remotePath,
 								syncDateRepositoryImpl);
 						
-						timer.schedule(task, 0, Long.parseLong(ftpLinkInfo.get().getSyncTime())*1000);
+				timer.schedule(task, 0, Long.parseLong(ftpLinkInfo.get().getSyncTime())*1000);
 					
-					Application.setTimerMap(ftpId + remotePath, timer);
-					Application.setThreadSyncFileMap(ftpId + remotePath, task);
-				//	} else {
-					//	syncSingleFile(ftpId, remotePath, file.getName());
-				//	}
-				//}
+				Application.setTimerMap(ftpId + remotePath, timer);
+				Application.setThreadSyncFileMap(ftpId + remotePath, task);
 			}
 
 		} catch (IOException e) {
@@ -342,44 +317,17 @@ public class FtpSyncTaskService {
 	 */
 	public Result syncFoldeStop(String id, String path) {
 		syncDateRepositoryImpl.delInfoByIdAndPath(Integer.parseInt(id), path);
-//		Optional<FtplinkInfo> ftpLinkInfo = ftpLinkInfoRepositoryImpl.findById(Integer.parseInt(id));
-//
-//		FTPClient remoteFtpClient = FtpUtil.getFtpClient(ftpLinkInfo.get().getRemoteIp(),
-//				ftpLinkInfo.get().getRemotePort(), ftpLinkInfo.get().getRemoteUsername(),
-//				ftpLinkInfo.get().getRemotePassword());
-	//	try {
-			//remoteFtpClient.changeWorkingDirectory(path);
-			//FTPFile[] remoteFiles = remoteFtpClient.listFiles();
-			//for (FTPFile file : remoteFiles) {
-			//	if (file.isDirectory()) {
-				//	String newPath = path + "/" + file.getName();
-					Timer timer = Application.getTimerMap(id + path);
-					ThreadSyncFile task=Application.getThreadSyncFileMap(id + path);
-					if (timer != null) {
-						timer.cancel();
-						Application.removeTimerMap(id + path);
-						syncDateRepositoryImpl.delInfoByIdAndPath(Integer.parseInt(id), path);
-					}
-					if(task !=null) {
-						task.stopFtp();
-						Application.removeThreadSyncFileMap(id + path);
-					}
-				//}
-			//}
-		//} catch (IOException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-	//	} finally {
-			//if (null != remoteFtpClient) {
-			//	try {
-			//		remoteFtpClient.logout();
-			//		remoteFtpClient.disconnect();
-			//	} catch (IOException e) {
-					// TODO Auto-generated catch block
-			//		e.printStackTrace();
-			//	}
-		//	}
-	//	}
+		Timer timer = Application.getTimerMap(id + path);
+		ThreadSyncFile task=Application.getThreadSyncFileMap(id + path);
+		if (timer != null) {
+			timer.cancel();
+			Application.removeTimerMap(id + path);
+			syncDateRepositoryImpl.delInfoByIdAndPath(Integer.parseInt(id), path);
+		}
+		if(task !=null) {
+			task.stopFtp();
+			Application.removeThreadSyncFileMap(id + path);
+		}
 
 		return new Result(true, "停止同步成功", null);
 	}
@@ -469,32 +417,18 @@ public class FtpSyncTaskService {
 	public Result stopSyncTask(String ftpId, String nativePath, String remotePath, String id) {
 
 		syncDateRepositoryImpl.delInfoByIdAndPath(Integer.parseInt(ftpId), remotePath+nativePath);
-		//Optional<FtplinkInfo> ftpLinkInfo = ftpLinkInfoRepositoryImpl.findById(Integer.parseInt(ftpId));
-
-		//FTPClient remoteFtpClient = FtpUtil.getFtpClient(ftpLinkInfo.get().getRemoteIp(),
-			//	ftpLinkInfo.get().getRemotePort(), ftpLinkInfo.get().getRemoteUsername(),
-			//	ftpLinkInfo.get().getRemotePassword());
-		//try {
-			//remoteFtpClient.changeWorkingDirectory(remotePath);
-			//FTPFile[] remoteFiles = remoteFtpClient.listFiles();
-			//for (FTPFile file : remoteFiles) {
-				//if (file.isDirectory()) {
-				//	String newRemotePath = remotePath + "/" + file.getName();
-					//String newNativePath = nativePath + "/" + file.getName();
-					Timer timer = Application.getTimerMap(ftpId + remotePath+nativePath);
-					ThreadSyncFile task=Application.getThreadSyncFileMap(ftpId + remotePath+nativePath);
-					if (timer != null) {
-						timer.cancel();
-						Application.removeTimerMap(ftpId + remotePath+nativePath);
-						syncDateRepositoryImpl.delInfoByIdAndPath(Integer.parseInt(ftpId), remotePath+nativePath);
-					}
+		Timer timer = Application.getTimerMap(ftpId + remotePath+nativePath);
+		ThreadSyncFile task=Application.getThreadSyncFileMap(ftpId + remotePath+nativePath);
+		if (timer != null) {
+			timer.cancel();
+			Application.removeTimerMap(ftpId + remotePath+nativePath);
+			syncDateRepositoryImpl.delInfoByIdAndPath(Integer.parseInt(ftpId), remotePath+nativePath);
+		}
 					
-					if(task != null) {
-						task.stopFtp();
-						Application.removeThreadSyncFileMap(ftpId + remotePath+nativePath);
-					}
-				//}
-			//}
+		if(task != null) {
+			task.stopFtp();
+			Application.removeThreadSyncFileMap(ftpId + remotePath+nativePath);
+		}
 			/**
 			 * 重新保存配置同步任务flag
 			 */
@@ -502,20 +436,6 @@ public class FtpSyncTaskService {
 			SyncTask syncTask = syncTaskOption.get();
 			syncTask.setFlag(0);
 			syncTaskRepositoryImpl.save(syncTask);
-		//} catch (IOException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//} finally {
-		//	if (null != remoteFtpClient) {
-		//		try {
-		//			remoteFtpClient.logout();
-		//			remoteFtpClient.disconnect();
-		//		} catch (IOException e) {
-					// TODO Auto-generated catch block
-		//			e.printStackTrace();
-			//	}
-		//	}
-		//}
 
 		return new Result(true, "停止同步成功", null);
 	}
