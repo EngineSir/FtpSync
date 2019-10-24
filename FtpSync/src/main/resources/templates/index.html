@@ -14,17 +14,8 @@
 	<div class="layui-layout layui-layout-admin">
 		<div class="layui-header">
 			<div class="layui-logo">FTP同步工具</div>
-			<!-- 头部区域（可配合layui已有的水平导航） -->
-			<!--  <ul class="layui-tab-title layui-layout-left " >
-      <li class="layui-nav-item"><a href="">控制台</a></li>
-      <li class="layui-nav-item"><a href="">商品管理</a></li>
-      <li class="layui-nav-item"><a href="">用户</a></li>
-    </ul> -->
 			<div class="layui-tab" lay-filter="demo" lay-allowclose="true">
 				<ul class="layui-tab-title tab-option">
-					<!--  <li class="layui-nav-item"><a href="">控制台</a></li>
-      <li class="layui-nav-item"><a href="">商品管理</a></li>
-      <li class="layui-nav-item"><a href="">用户</a></li> -->
 					<li lay-id="index" class="layui-this">首页<i
 						class="layui-icon layui-unselect layui-tab-close">&#x1006;</i></li>
 					<li lay-id="task-list">同步任务<i
@@ -62,7 +53,7 @@
 			</div>
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
-						src="http://t.cn/RCzsdCq" class="layui-nav-img"> admin
+						src="image/head.jpg" class="layui-nav-img"> admin
 				</a></li>
 				<li class="layui-nav-item" id="logout"><a href="">退了</a></li>
 			</ul>
@@ -75,28 +66,13 @@
 					<li class="layui-nav-item layui-nav-itemed"><a class=""
 						href="javascript:;">FTP链接</a>
 						<dl class="layui-nav-child" id="ftp-nick-list">
-							<!-- <dd>
-								<a href="javascript:;" data-type="tabAdd"
-									class="site-demo-active" lay-id="1">链接一</a>
-							</dd>
-							<dd>
-								<a href="javascript:;" data-type="tabAdd"
-									class="site-demo-active" lay-id="2">链接二</a>
-							</dd>
-							<dd>
-								<a href="javascript:;" data-type="tabAdd"
-									class="site-demo-active" lay-id="3">链接三</a>
-							</dd> -->
 						</dl></li>
-
-
 				</ul>
 			</div>
 		</div>
 
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
-			<!-- <div style="padding: 15px;">内容主体区域</div> -->
 			<iframe id="file-details" data-frameid="' + id + '" frameborder="0" src="../ftpFileLink" style="display:none;z-index:2;width:100%;height:100%;"></iframe>
 		</div>
 		<!-- 增加，修改ftp链接弹框 -->
@@ -213,17 +189,7 @@
 							</div>
 
 						</form>
-
-
-
-
-
-
 					</div>
-					<!-- <div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">提交更改</button>
-					</div> -->
 				</div>
 				<!-- /.modal-content -->
 			</div>

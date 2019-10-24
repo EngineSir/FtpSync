@@ -23,7 +23,7 @@ public class SessionFilter implements Filter {
 		String username = (String) req.getSession().getAttribute("username");
 		String url = req.getRequestURI();
 		//过滤静态文件
-		if (url.indexOf("bootstrap") > 0 || url.indexOf("css") > 0 || url.indexOf("image") > 0 || url.indexOf("js") > 0 || url.indexOf("json-viewer") > 0 || url.indexOf("layui") > 0) { 
+		if(url.indexOf("static")>0) {
 			chain.doFilter(request, response);
 		}else if(url.indexOf("login") > 0) { // 过滤掉登陆地址和登陆页
 			chain.doFilter(request, response);

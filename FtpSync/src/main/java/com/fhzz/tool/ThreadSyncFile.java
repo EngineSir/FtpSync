@@ -62,7 +62,6 @@ public class ThreadSyncFile extends TimerTask {
 		try {
 			this.nativeFtpClient.makeDirectory(curNativePath);
 			this.nativeFtpClient.changeWorkingDirectory(curNativePath);
-			//this.remoteFtpClient.makeDirectory(curDate);
 			//切换到需要同步改天的文件夹下
 			this.remoteFtpClient.changeWorkingDirectory(curRemotePath);
 		} catch (IOException e) {
@@ -74,7 +73,6 @@ public class ThreadSyncFile extends TimerTask {
 	@Override
 	public void run() {
 			try {
-				//String curDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 				this.remoteFtpClient.changeWorkingDirectory(this.remotePath);
 				this.nativeFtpClient.changeWorkingDirectory(this.nativePath);
 				
@@ -148,6 +146,7 @@ public class ThreadSyncFile extends TimerTask {
 					if(isNum.matches()&& !file.getName().equals(curDate)) {		//是日期文件夹但不是当天文件夹
 						continue;
 					}else {
+						//路径记录便于动态切换目录
 						curRemotePath+=file.getName()+"/";
 						curNativePath+=file.getName()+"/";
 						ftpFolderDir(curRemotePath,curNativePath);
@@ -161,15 +160,25 @@ public class ThreadSyncFile extends TimerTask {
 				}
 				//long fileTime=Long.parseLong(file.getName().substring(0, file.getName().indexOf(".")));
 				//ftp文件时间不能精确到秒，故加60秒，以达到都可以同步
-				if(!file.isDirectory() && (file.getTimestamp().getTimeInMillis()/1000+60)>=(syncDate.getTime()/1000)) {
-				//if(!file.isDirectory() && fileTime>=(syncDate.getTime())) {
-					 this.remoteFtpClient.setRemoteVerificationEnabled(false);
-					 OutputStream is = this.nativeFtpClient.storeFileStream(file.getName());
-					 this.remoteFtpClient.setFileType(FTP.BINARY_FILE_TYPE);
-					 // 通过流把remoteFtpClient复制到nativeFtpClient
-					 this.remoteFtpClient.retrieveFile(new String(file.getName().getBytes("GBK"),"iso-8859-1"), is);
-					 is.close();
-					 this.nativeFtpClient.completePendingCommand();
+				if(!file.isDirectory()) {
+					// (file.getTimestamp().getTimeInMillis()/1000+60)>=(syncDate.getTime()/1000);
+					long fileTime=0;
+					Matcher isNum = pattern.matcher(file.getName().substring(0, file.getName().indexOf(".")));
+					if(isNum.matches()) {		//纯数字文件名默认为以时间戳命名的文件
+						fileTime=Long.parseLong(file.getName().substring(0, file.getName().indexOf(".")));
+					}else {
+						fileTime=file.getTimestamp().getTimeInMillis()+60000;
+					}
+					log.info("-------------fileTime: "+fileTime+" ,----上一次同步时间: "+syncDate.getTime());
+					if( fileTime>=syncDate.getTime()) {
+						this.remoteFtpClient.setRemoteVerificationEnabled(false);
+						OutputStream is = this.nativeFtpClient.storeFileStream(file.getName());
+						this.remoteFtpClient.setFileType(FTP.BINARY_FILE_TYPE);
+						// 通过流把remoteFtpClient复制到nativeFtpClient
+						this.remoteFtpClient.retrieveFile(new String(file.getName().getBytes("GBK"),"iso-8859-1"), is);
+						is.close();
+						this.nativeFtpClient.completePendingCommand();
+				}
 				}
 			}
 			
